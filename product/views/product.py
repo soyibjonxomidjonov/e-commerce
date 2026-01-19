@@ -55,7 +55,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def top_rated(self, request):
-        top_products = Product.objects.annotate(avg_rating=models.Avg('reviews_rating')).order_by("-avg_rating")[:2]
+        top_products = Product.objects.annotate(avg_rating=models.Avg('reviews__rating')).order_by("-avg_rating")[:2]
         serializer = ProductSerializers(top_products, many=True)
         return Response(serializer.data)
 
